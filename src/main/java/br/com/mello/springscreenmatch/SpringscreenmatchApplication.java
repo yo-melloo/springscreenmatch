@@ -2,11 +2,15 @@ package br.com.mello.springscreenmatch;
 
 import br.com.mello.springscreenmatch.model.DadosEpisodio;
 import br.com.mello.springscreenmatch.model.DadosSerie;
+import br.com.mello.springscreenmatch.model.DadosTemporada;
 import br.com.mello.springscreenmatch.service.ConsumoApi;
 import br.com.mello.springscreenmatch.service.ConverteDados;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class SpringscreenmatchApplication implements CommandLineRunner {
@@ -33,13 +37,24 @@ public class SpringscreenmatchApplication implements CommandLineRunner {
 		System.out.println(enderecoURIEpisodio);
 		var jsonResultado = consulta.realizarConsulta(enderecoURI);
 		var jsonResultadoDois = consulta.realizarConsulta(enderecoURIEpisodio);
-
+		
 
 		//Atribuindo dados do Json ao record:
 		DadosSerie dadosSerie = conversorDeTipo.jsonParaObjeto(jsonResultado, DadosSerie.class);
 		System.out.println("Resultado da série: " + dadosSerie);
 		DadosEpisodio dadosEpisodio = conversorDeTipo.jsonParaObjeto(jsonResultadoDois, DadosEpisodio.class);
 		System.out.println("Resultado do episódio" + dadosEpisodio);
+
+		//Listando temporadas:
+		List<DadosTemporada> temporadas = new ArrayList<>();
+		for (int i = 1; i < dadosSerie.totalTemporadas(); i++) {
+			String jsonResultadoTemporada = consulta.realizarConsulta(enderecoURI + "&season=" + i);
+			DadosTemporada dadosTemporada = conversorDeTipo.jsonParaObjeto(jsonResultadoTemporada, DadosTemporada.class);
+			temporadas.add(dadosTemporada);
+		}
+		//Ainda não aprendi a sintaxe desse sout:
+		temporadas.forEach(System.out::println);
+
 
 	}
 
