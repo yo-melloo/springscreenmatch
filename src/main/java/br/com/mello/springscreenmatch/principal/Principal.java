@@ -36,8 +36,16 @@ public class Principal {
             DadosTemporada dadosTemporada = conversor.jsonParaObjeto(jsonResultadoTemporada, DadosTemporada.class);
             temporadas.add(dadosTemporada);
         }
+
         //Ainda não aprendi a sintaxe desse sout:
         temporadas.forEach(System.out::println);
+
+        //Esse pior ainda:
+        //Mello do futuro corrigindo:
+        temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
+        // funcao('(argumentos)' -> 'corpo-da-função')
+        // funcao(a, b -> { return a + b; })
+
     }
 
 }
