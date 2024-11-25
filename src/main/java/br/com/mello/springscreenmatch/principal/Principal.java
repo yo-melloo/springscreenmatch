@@ -3,6 +3,7 @@ package br.com.mello.springscreenmatch.principal;
 import br.com.mello.springscreenmatch.model.DadosEpisodio;
 import br.com.mello.springscreenmatch.model.DadosSerie;
 import br.com.mello.springscreenmatch.model.DadosTemporada;
+import br.com.mello.springscreenmatch.model.Episodio;
 import br.com.mello.springscreenmatch.service.ConsumoApi;
 import br.com.mello.springscreenmatch.service.ConverteDados;
 
@@ -40,33 +41,40 @@ public class Principal {
             temporadas.add(dadosTemporada);
         }
 
-        //Ainda não aprendi a sintaxe desse sout:
+        // --Ainda não aprendi a sintaxe desse sout:
         // Imprime todas as temporadas:
         //temporadas.forEach(System.out::println);
 
-        //Esse pior ainda:
+        // --Esse pior ainda:
         //Imprime todos os espisódios (apenas os títulos):
-        //Mello do futuro corrigindo:
+        // --Mello do futuro corrigindo:
         //temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
-        // funcao('(argumentos)' -> 'corpo-da-função')
-        // funcao(a, b -> { return a + b; })
+        // --funcao('(argumentos)' -> 'corpo-da-função')
+        // --funcao(a, b -> { return a + b; })
 
         //Usando streams para imprimir top 5 episódios:
         //Criando a lista de Episódios:
         List<DadosEpisodio> dadosEpisodios = temporadas.stream()
                 .flatMap(t -> t.episodios().stream())
-                //flatMap cria um novo array *
+                // --flatMap cria um novo array *
                 .collect(Collectors.toList());
-                //collect(Collectors.tolist()) converte o array em uma lista
-                //Acredito que seja por se tratar do tipo de dado adequado para se por em uma List, dããã...
+                // --collect(Collectors.tolist()) converte o array em uma lista
+                // --Acredito que seja por se tratar do tipo de dado adequado para se por em uma List, dããã...
 
         //dadosEpisodios.forEach(System.out::println);
         System.out.printf("%nTop 5 ep:");
-        dadosEpisodios.stream()
+        dadosEpisodios.stream() // stream trabalha com coleções de dados
                 .filter(e -> !e.classificacao().equalsIgnoreCase("n/a"))
                 .sorted(Comparator.comparing(DadosEpisodio::classificacao).reversed())
                 .limit(5)
                 .forEach(System.out::println);
+
+        List<Episodio> episodios = temporadas.stream()
+                .flatMap(t -> t.episodios().stream()
+                        .map(e -> new Episodio(t.numero(), e)))
+                        .collect(Collectors.toList());
+
+        episodios.forEach(System.out::println);
 
     }
 
