@@ -13,31 +13,41 @@ public class Principal {
     private final ConsumoApi consultaAPI = new ConsumoApi();
     private final Scanner entrada = new Scanner(System.in);
     private final ConverteDados conversor = new ConverteDados();
+    private List<DadosSerie> listaSeries = new ArrayList<>();
 
     public void exibirMenu(){
+        var opcao = -1;
+
         var menu = """
                 1. Pesquisar Séries
                 2. Pesquisar episódios
-                
-                Digite a opção selecionada:""";
+                3. Listar séries pesquisadas
+               \s
+                Digite a opção selecionada:\s""";
 
-        System.out.print(menu);
-        var opcao = entrada.nextInt();
-        entrada.nextLine();
 
-        //Analisando a opção escolhida:
-        switch (opcao){
-            case 1:
-                buscarSerieWeb();
-                break;
-            case 2:
-                buscarEpisodioPorSerie();
-                break;
-            case 0:
-                System.out.println("Saindo...");
-                break;
-            default:
-                System.out.println("Opção inválida");
+        while (opcao != 0) {
+            System.out.print(menu);
+            opcao = entrada.nextInt();
+            entrada.nextLine();
+
+            //Analisando a opção escolhida:
+            switch (opcao) {
+                case 1:
+                    buscarSerieWeb();
+                    break;
+                case 2:
+                    buscarEpisodioPorSerie();
+                    break;
+                case 3:
+                    listarSeries();
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida");
+            }
         }
     }
 
@@ -52,7 +62,9 @@ public class Principal {
         System.out.print("Digite o nome da série: ");
         var nomeSerie = entrada.nextLine();
         var json = consultaAPI.realizarConsulta(endereco + nomeSerie.replace(" ", "+") + API_KEY);
-        return conversor.jsonParaObjeto(json, DadosSerie.class);
+        DadosSerie serie = conversor.jsonParaObjeto(json, DadosSerie.class);
+        listaSeries.add(serie);
+        return serie;
     }
 
     private void buscarEpisodioPorSerie() {
@@ -65,6 +77,10 @@ public class Principal {
             temporadas.add(dadosTemporada);
         }
         temporadas.forEach(System.out::println);
+    }
+
+    private void listarSeries() {
+        listaSeries.forEach(System.out::println);
     }
 
 }
