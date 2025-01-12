@@ -2,10 +2,12 @@ package br.com.mello.springscreenmatch.principal;
 
 import br.com.mello.springscreenmatch.model.DadosSerie;
 import br.com.mello.springscreenmatch.model.DadosTemporada;
+import br.com.mello.springscreenmatch.model.Serie;
 import br.com.mello.springscreenmatch.service.ConsumoApi;
 import br.com.mello.springscreenmatch.service.ConverteDados;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Principal {
     private final String endereco = "https://www.omdbapi.com/?t=";
@@ -80,7 +82,14 @@ public class Principal {
     }
 
     private void listarSeries() {
-        listaSeries.forEach(System.out::println);
+        List<Serie> series = new ArrayList<>();
+        series = listaSeries.stream()
+                .map(Serie::new)
+                .toList();
+        series.stream()
+                .sorted(Comparator.comparing(Serie::getGenero))
+                .forEach(System.out::println);
+
     }
 
 }
