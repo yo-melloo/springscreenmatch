@@ -1,15 +1,30 @@
 package br.com.mello.springscreenmatch.model;
 
+import jakarta.persistence.*;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "episodios")
 public class Episodio {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private Integer temporada;
     private String titulo;
     private Integer numero;
     private Double classificacao;
     private LocalDate dataDeLancamento;
+    @ManyToOne
+    private Serie serie;
+
+    public void setSerie(Serie serie) {
+        this.serie = serie;
+    }
+
+    public Episodio() {
+    }
 
     public Episodio(Integer temporada, DadosEpisodio dadosEpisodio) {
     this.temporada = temporada;
