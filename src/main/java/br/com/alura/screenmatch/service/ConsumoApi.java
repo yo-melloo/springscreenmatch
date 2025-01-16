@@ -1,4 +1,4 @@
-package br.com.mello.springscreenmatch.service;
+package br.com.alura.screenmatch.service;
 
 import java.io.IOException;
 import java.net.URI;
@@ -8,22 +8,22 @@ import java.net.http.HttpResponse;
 
 public class ConsumoApi {
 
-    public String realizarConsulta(String endereco) {
+    public String obterDados(String endereco) {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(endereco))
                 .build();
-        HttpResponse<String> response;
-
+        HttpResponse<String> response = null;
         try {
             response = client
                     .send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (InterruptedException | IOException e) {
-            throw new RuntimeException(String.valueOf(e));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
-        return response.body();
+        String json = response.body();
+        return json;
     }
-
-
 }
