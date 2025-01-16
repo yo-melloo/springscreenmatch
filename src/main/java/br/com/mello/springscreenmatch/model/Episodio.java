@@ -92,4 +92,8 @@ public class Episodio {
                 ", classificacao: " + classificacao +
                 ", dataDeLancamento: " + dataDeLancamento;
     }
+
+    public Serie getSerie() {
+        return serie;
+    }
 }
