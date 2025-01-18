@@ -1,6 +1,6 @@
-package br.com.alura.screenmatch.dto;
+package br.com.mello.springscreenmatch.dto;
 
-import br.com.alura.screenmatch.model.Categoria;
+import br.com.mello.springscreenmatch.model.Categoria;
 
 public record SerieDTO (
         Long id,

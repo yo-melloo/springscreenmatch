@@ -1,4 +1,4 @@
-package br.com.alura.screenmatch.service;
+package br.com.mello.springscreenmatch.service;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;

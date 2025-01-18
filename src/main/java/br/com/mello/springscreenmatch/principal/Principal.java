@@ -1,15 +1,11 @@
-package br.com.alura.screenmatch.principal;
+package br.com.mello.springscreenmatch.principal;
 
-import br.com.alura.screenmatch.model.*;
-import br.com.alura.screenmatch.repository.SerieRepository;
-import br.com.alura.screenmatch.service.ConsumoApi;
-import br.com.alura.screenmatch.service.ConverteDados;
+import br.com.mello.springscreenmatch.model.*;
+import br.com.mello.springscreenmatch.repository.SerieRepository;
+import br.com.mello.springscreenmatch.service.ConsumoApi;
+import br.com.mello.springscreenmatch.service.ConverteDados;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Principal {

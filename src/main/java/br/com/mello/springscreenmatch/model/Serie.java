@@ -1,6 +1,6 @@
-package br.com.alura.screenmatch.model;
+package br.com.mello.springscreenmatch.model;
 
-import br.com.alura.screenmatch.service.ConsultaGemni;
+import br.com.mello.springscreenmatch.service.ConsultaGemni;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
